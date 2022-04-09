@@ -46,6 +46,7 @@ public class CurrencyBot extends TelegramLongPollingBot {
 
     public void sendMessageTo(String message, String chatId) {
         SendMessage msg = new SendMessage();
+        msg.enableMarkdown(true);
         msg.setText(message);
         msg.setChatId(chatId);
         try {
@@ -60,8 +61,13 @@ public class CurrencyBot extends TelegramLongPollingBot {
         double brl = res.getJSONObject("rates").getDouble("BRL");
         double usd = res.getJSONObject("rates").getDouble("USD");
 
-        String message = "Base currecy: "+res.getString("base")+"." +
-                "\nCurrencies: \nBRL: "+brl+".\n USD: "+usd;
+      // String message = "*Base currency:* "+res.getString("base")+"." +
+         //       "\n*Currencies:*\n*BRL:* "+brl+".\n *USD:* "+usd+".";
+        String message = "**Base currency:** "+res.getString("base")+".\n"+
+                "|  Currencies  |\n" +
+                "|--|--|\n" +
+                "| **BRL** | "+brl+" |\n" +
+                "| **USD**| "+usd+" |";
         sendMessageTo(message, chatId);
     }
 }
