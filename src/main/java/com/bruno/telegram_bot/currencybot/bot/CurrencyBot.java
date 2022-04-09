@@ -11,6 +11,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 @Component
@@ -61,11 +64,11 @@ public class CurrencyBot extends TelegramLongPollingBot {
         double brl = res.getJSONObject("rates").getDouble("BRL");
         double usd = res.getJSONObject("rates").getDouble("USD");
 
-        String message = "*Base currency:* "+res.getString("base")+".\n"+
+        String message = "|  *Date:* "+LocalDate.now(ZoneId.of("America/Sao_Paulo"))+"  |\n\n" +
+                "*Base currency:* "+res.getString("base")+".\n"+
                 "|  *Currencies*  |\n" +
-                "|----------------|\n" +
-                "| *BRL* | "+brl+" |\n" +
-                "| *USD* | "+usd+" |";
+                "*BRL:* "+brl+".\n" +
+                "*USD:* "+usd+".";
         sendMessageTo(message, chatId);
     }
 }

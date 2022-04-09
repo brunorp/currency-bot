@@ -21,14 +21,14 @@ public class SchedulingService {
         this.telegramConfig = telegramConfig;
     }
 
-    // 10:00 every day
-    @Scheduled(cron = "0 0 10 * * *", zone = "America/Sao_Paulo")
+    // 9:00 every day
+    @Scheduled(cron = "0 0 9 * * *", zone = "America/Sao_Paulo")
     private void notifyWithCurrenciesMorning() throws IOException, ExecutionException, InterruptedException {
         currencyBot.sendCurrenciesTo(telegramConfig.getBotChatId());
     }
 
-    // 22:00 every day
-    @Scheduled(cron = "0 4 19 * * *", zone = "America/Sao_Paulo")
+    // 21:00 every day
+    @Scheduled(cron = "0 15 19 * * *", zone = "America/Sao_Paulo")
     private void notifyWithCurrenciesEvening() throws IOException, ExecutionException, InterruptedException {
         currencyBot.sendCurrenciesTo(telegramConfig.getBotChatId());
     }
