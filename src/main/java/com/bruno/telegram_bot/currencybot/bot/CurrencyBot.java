@@ -57,12 +57,11 @@ public class CurrencyBot extends TelegramLongPollingBot {
 
     public void sendCurrenciesTo(String chatId) throws IOException, ExecutionException, InterruptedException {
         JSONObject res = currencyService.getLastCurrencies();
-        double eur = res.getJSONObject("rates").getDouble("EUR");
         double brl = res.getJSONObject("rates").getDouble("BRL");
         double usd = res.getJSONObject("rates").getDouble("USD");
 
-        String message = "Base currecy: "+res.getString("base")+". Currencies: " +
-                "EUR: "+eur+". BRL: "+brl+". USD: "+usd;
+        String message = "Base currecy: "+res.getString("base")+"." +
+                "\nCurrencies: \nBRL: "+brl+".\n USD: "+usd;
         sendMessageTo(message, chatId);
     }
 }
