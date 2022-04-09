@@ -65,7 +65,7 @@ public class CurrencyBot extends TelegramLongPollingBot {
         double usd = res.getJSONObject("rates").getDouble("USD");
 
         String message = "|  *Date:* "+LocalDate.now(ZoneId.of("America/Sao_Paulo"))+"  |\n\n" +
-                "*Base currency:* "+res.getString("base")+".\n"+
+                "*Base currency:* "+res.getString("base")+".\n\n"+
                 "|  *Currencies*  |\n" +
                 "*BRL:* "+brl+".\n" +
                 "*USD:* "+usd+".";
