@@ -48,7 +48,7 @@ public class SchedulingService {
     }
 
     //health check
-    @Scheduled(cron = "* * * * * *", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 0 */1 * * *", zone = "America/Sao_Paulo")
     private void healthCheck() throws IOException, InterruptedException {
         var response = httpCurrencyRequest.apiRequest(appUrl+"/actuator/health");
         logger.info("Health check: " + response);
