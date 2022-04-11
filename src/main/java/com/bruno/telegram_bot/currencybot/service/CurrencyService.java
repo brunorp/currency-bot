@@ -1,16 +1,12 @@
 package com.bruno.telegram_bot.currencybot.service;
 
-import com.bruno.telegram_bot.currencybot.configuration.CurrencyApiConfig;
 import com.bruno.telegram_bot.currencybot.data.Currency;
+import com.bruno.telegram_bot.currencybot.http.HttpCurrencyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -18,12 +14,15 @@ import java.util.concurrent.ExecutionException;
 public class CurrencyService {
 
     private final List<Currency> currencies;
-    private final CurrencyApiConfig currencyApiConfig;
+    private final HttpCurrencyRequest httpCurrencyRequest;
+    @Autowired
+    @Qualifier("getApiToken")
+    private String apiToken;
 
     @Autowired
-    public CurrencyService(List<Currency> currencies, CurrencyApiConfig currencyApiConfig) {
+    public CurrencyService(List<Currency> currencies, HttpCurrencyRequest httpCurrencyRequest) {
         this.currencies = currencies;
-        this.currencyApiConfig = currencyApiConfig;
+        this.httpCurrencyRequest = httpCurrencyRequest;
     }
 
     public JSONObject getLastCurrencies() throws IOException, InterruptedException, ExecutionException {
@@ -35,20 +34,10 @@ public class CurrencyService {
 
         }
         String uri = "http://api.exchangeratesapi.io/v1/latest?" +
-                "access_key="+currencyApiConfig.getApiToken()+"&" +
+                "access_key="+apiToken+"&" +
                 "symbols="+currenciesURLParameter+"&format=1";
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(uri))
-                .header("accept", "application/json")
-                .build();
-
-        var response = HttpClient.newBuilder()
-                .connectTimeout(Duration.ofSeconds(3))
-                .build()
-                .send(request, HttpResponse.BodyHandlers.ofString());
-
-        return new JSONObject(response.body());
+       return httpCurrencyRequest.apiRequest(uri);
     }
 
     @Override

@@ -1,9 +1,9 @@
 package com.bruno.telegram_bot.currencybot.bot;
 
-import com.bruno.telegram_bot.currencybot.configuration.TelegramConfig;
 import com.bruno.telegram_bot.currencybot.service.CurrencyService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -13,18 +13,21 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 @Component
 public class CurrencyBot extends TelegramLongPollingBot {
     private final CurrencyService currencyService;
-    private final TelegramConfig telegramConfig;
+    @Autowired
+    @Qualifier("getBotName")
+    private String botName;
+    @Autowired
+    @Qualifier("getBotToken")
+    private String botToken;
 
     @Autowired
-    public CurrencyBot(CurrencyService currencyService, TelegramConfig telegramConfig) {
+    public CurrencyBot(CurrencyService currencyService) {
         this.currencyService = currencyService;
-        this.telegramConfig = telegramConfig;
     }
 
     @Override
@@ -34,12 +37,12 @@ public class CurrencyBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return telegramConfig.getBotName();
+        return botName;
     }
 
     @Override
     public String getBotToken() {
-        return telegramConfig.getBotToken();
+        return botToken;
     }
 
     @Override

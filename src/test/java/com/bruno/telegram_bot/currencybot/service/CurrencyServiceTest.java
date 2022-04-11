@@ -1,0 +1,46 @@
+package com.bruno.telegram_bot.currencybot.service;
+
+import com.bruno.telegram_bot.currencybot.data.Currency;
+import com.bruno.telegram_bot.currencybot.http.HttpCurrencyRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+class CurrencyServiceTest {
+
+    @Mock
+    private HttpCurrencyRequest httpCurrencyRequest;
+    private static CurrencyService currencyService;
+
+    @BeforeEach
+    void setUp() {
+        List<Currency> currencies = Arrays.asList(Currency.BRL, Currency.USD);
+        currencyService = new CurrencyService(currencies, httpCurrencyRequest);
+    }
+
+
+    @Test
+    void getLastCurrencies() throws IOException, InterruptedException, ExecutionException, JSONException {
+
+        when(httpCurrencyRequest.apiRequest("http://api.exchangeratesapi.io/v1/latest?access_key=null&symbols=BRL,USD&format=1"))
+                .thenReturn(new JSONObject("{'id': 'teste'}"));
+
+        currencyService.getLastCurrencies();
+
+        verify(httpCurrencyRequest, times(1))
+                .apiRequest("http://api.exchangeratesapi.io/v1/latest?access_key=null&symbols=BRL,USD&format=1");
+    }
+
+}

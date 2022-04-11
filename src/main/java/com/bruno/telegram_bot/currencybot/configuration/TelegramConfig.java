@@ -1,6 +1,8 @@
 package com.bruno.telegram_bot.currencybot.configuration;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
@@ -17,14 +19,20 @@ public class TelegramConfig {
     @Value("${bot.chat.id}")
     private String botChatId;
 
+    @Bean
+    @Qualifier("getBotChatId")
     public String getBotChatId() {
         return botChatId;
     }
 
+    @Bean
+    @Qualifier("getBotToken")
     public String getBotToken() {
         return botToken;
     }
 
+    @Bean
+    @Qualifier("getBotName")
     public String getBotName() {
         return botName;
     }

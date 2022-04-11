@@ -28,7 +28,7 @@ public class SchedulingService {
     }
 
     // 21:00 every day
-    @Scheduled(cron = "0 0 21 * * *", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 10 21 * * *", zone = "America/Sao_Paulo")
     private void notifyWithCurrenciesEvening() throws IOException, ExecutionException, InterruptedException {
         currencyBot.sendCurrenciesTo(telegramConfig.getBotChatId());
     }
