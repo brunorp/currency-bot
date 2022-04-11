@@ -10,8 +10,7 @@ public class CurrencyApiConfig {
     @Value("${currency.api.token}")
     private String apiToken;
 
-    @Bean
-    @Qualifier("getApiToken")
+    @Bean(name="getApiToken")
     public String getApiToken() {
         return apiToken;
     }

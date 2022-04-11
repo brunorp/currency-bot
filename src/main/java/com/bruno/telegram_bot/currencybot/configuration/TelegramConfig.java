@@ -19,20 +19,17 @@ public class TelegramConfig {
     @Value("${bot.chat.id}")
     private String botChatId;
 
-    @Bean
-    @Qualifier("getBotChatId")
+    @Bean(name = "getBotChatId")
     public String getBotChatId() {
         return botChatId;
     }
 
-    @Bean
-    @Qualifier("getBotToken")
+    @Bean(name="getBotToken")
     public String getBotToken() {
         return botToken;
     }
 
-    @Bean
-    @Qualifier("getBotName")
+    @Bean(name="getBotName")
     public String getBotName() {
         return botName;
     }

@@ -4,7 +4,6 @@ import com.bruno.telegram_bot.currencybot.service.CurrencyService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,16 +18,17 @@ import java.util.concurrent.ExecutionException;
 @Component
 public class CurrencyBot extends TelegramLongPollingBot {
     private final CurrencyService currencyService;
-
-    @Value("${bot.name}")
-    private String botName;
-
-    @Value("bot.token")
-    private String botToken;
+    private final String botName;
+    private final String botToken;
 
     @Autowired
-    public CurrencyBot(CurrencyService currencyService) {
+    public CurrencyBot(
+            CurrencyService currencyService,
+            @Qualifier("getBotName") String botName,
+            @Qualifier("getBotToken") String botToken) {
         this.currencyService = currencyService;
+        this.botName = botName;
+        this.botToken = botToken;
     }
 
     @Override

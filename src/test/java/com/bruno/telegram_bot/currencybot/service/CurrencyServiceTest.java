@@ -27,7 +27,7 @@ class CurrencyServiceTest {
     @BeforeEach
     void setUp() {
         List<Currency> currencies = Arrays.asList(Currency.BRL, Currency.USD);
-        currencyService = new CurrencyService(currencies, httpCurrencyRequest);
+        currencyService = new CurrencyService(currencies, httpCurrencyRequest, "1234");
     }
 
 

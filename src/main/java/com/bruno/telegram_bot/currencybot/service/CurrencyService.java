@@ -1,10 +1,10 @@
 package com.bruno.telegram_bot.currencybot.service;
 
+
 import com.bruno.telegram_bot.currencybot.data.Currency;
 import com.bruno.telegram_bot.currencybot.http.HttpCurrencyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -16,13 +16,13 @@ public class CurrencyService {
 
     private final List<Currency> currencies;
     private final HttpCurrencyRequest httpCurrencyRequest;
-    @Value("${currency.api.token}")
-    private String apiToken;
+    private final String apiToken;
 
     @Autowired
-    public CurrencyService(List<Currency> currencies, HttpCurrencyRequest httpCurrencyRequest) {
+    public CurrencyService(List<Currency> currencies, HttpCurrencyRequest httpCurrencyRequest, @Qualifier("getApiToken") String apiToken) {
         this.currencies = currencies;
         this.httpCurrencyRequest = httpCurrencyRequest;
+        this.apiToken = apiToken;
     }
 
     public JSONObject getLastCurrencies() throws IOException, InterruptedException, ExecutionException {
