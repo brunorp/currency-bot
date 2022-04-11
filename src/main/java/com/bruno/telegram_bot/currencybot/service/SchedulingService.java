@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -43,9 +42,6 @@ public class SchedulingService {
 
     @Scheduled(cron = "* * * * * *", zone = "America/Sao_Paulo")
     private void healthCheck(){
-        RestTemplate restTemplate = new RestTemplate();
-        var res = restTemplate.getForEntity(appUrl, String.class);
-        logger.info("Health check. Status code: "+res.getStatusCode());
     }
 
 }
