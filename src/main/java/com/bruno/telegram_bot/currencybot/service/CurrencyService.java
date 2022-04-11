@@ -4,6 +4,7 @@ import com.bruno.telegram_bot.currencybot.data.Currency;
 import com.bruno.telegram_bot.currencybot.http.HttpCurrencyRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -15,8 +16,7 @@ public class CurrencyService {
 
     private final List<Currency> currencies;
     private final HttpCurrencyRequest httpCurrencyRequest;
-    @Autowired
-    @Qualifier("getApiToken")
+    @Value("${currency.api.token}")
     private String apiToken;
 
     @Autowired
