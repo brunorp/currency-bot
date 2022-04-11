@@ -32,7 +32,7 @@ public class SchedulingService {
     }
 
     // 21:00 every day
-    @Scheduled(cron = "0 16 22 * * *", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 19 22 * * *", zone = "America/Sao_Paulo")
     private void notifyWithCurrenciesEvening() throws IOException, ExecutionException, InterruptedException {
         logger.info("Sending night message.");
         currencyBot.sendCurrenciesTo(chatId);
