@@ -25,7 +25,7 @@ public class CurrencyService {
         this.apiToken = apiToken;
     }
 
-    public JSONObject getLastCurrencies() throws IOException, InterruptedException, ExecutionException {
+    public JSONObject getLastCurrencies() throws IOException, InterruptedException {
         StringBuilder currenciesURLParameter = new StringBuilder();
         for(Currency item : currencies){
             currenciesURLParameter.append(item);
@@ -38,16 +38,5 @@ public class CurrencyService {
                 "symbols="+currenciesURLParameter+"&format=1";
 
        return httpCurrencyRequest.apiRequest(uri);
-    }
-
-    @Override
-    public String toString() {
-        try {
-            var res = getLastCurrencies();
-            return "Base currecy: "+res.getString("base")+". Currencies: "+res.getJSONObject("rates");
-        } catch (IOException | InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            return "error";
-        }
     }
 }
