@@ -19,7 +19,7 @@ public class SchedulingService {
     private final Logger logger = LoggerFactory.getLogger(SchedulingService.class);
 
     @Autowired
-    public SchedulingService(CurrencyBot currencyBot, @Qualifier("getChatId") String chatId) {
+    public SchedulingService(CurrencyBot currencyBot, @Qualifier("getBotChatId") String chatId) {
         this.currencyBot = currencyBot;
         this.chatId = chatId;
     }
