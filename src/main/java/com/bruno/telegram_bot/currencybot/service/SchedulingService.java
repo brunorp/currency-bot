@@ -34,7 +34,7 @@ public class SchedulingService {
     }
 
     // 9:00 every day
-    @Scheduled(cron = "0 0 9 * * *", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 36 9 * * *", zone = "America/Sao_Paulo")
     private void notifyWithCurrenciesMorning() throws IOException, ExecutionException, InterruptedException {
         logger.info("Sending morning message.");
         currencyBot.sendCurrenciesTo(chatId);
@@ -48,7 +48,7 @@ public class SchedulingService {
     }
 
     //health check
-    @Scheduled(cron = "0 0 */1 * * *", zone = "America/Sao_Paulo")
+    @Scheduled(cron = "0 */1 * * * *", zone = "America/Sao_Paulo")
     private void healthCheck() throws IOException, InterruptedException {
         var response = httpCurrencyRequest.apiRequest(appUrl+"/actuator/health");
         logger.info("Health check: " + response);
