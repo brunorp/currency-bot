@@ -50,9 +50,8 @@ public class SchedulingService {
     //health check
     @Scheduled(cron = "* * * * * *", zone = "America/Sao_Paulo")
     private void healthCheck() throws IOException, InterruptedException {
-       // var response = httpCurrencyRequest.apiRequest(appUrl+"/actuator/health");
-
-        logger.info("Health check: " + appUrl);
+        var response = httpCurrencyRequest.apiRequest(appUrl+"/actuator/health");
+        logger.info("Health check: " + response.getString("Status"));
     }
 
 }

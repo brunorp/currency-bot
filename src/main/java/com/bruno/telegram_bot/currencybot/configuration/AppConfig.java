@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
 
-    @Value("{currency.bot.url}")
+    @Value("${currency.bot.url}")
     private String appUrl;
 
     @Bean(name="getAppUrl")
